@@ -1,5 +1,5 @@
 //
-//  MEMPockerViewController.h
+//  MEMPokerViewController.h
 //  Memory
 //
 //  Created by owen on 2017/9/15.
@@ -8,6 +8,6 @@
 
 #import <UIKit/UIKit.h>
 
-@interface MEMPockerViewController : UIViewController
+@interface MEMPokerViewController : UIViewController
 
 @end

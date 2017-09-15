@@ -217,7 +217,7 @@ func DebugLog(_ msg: String) {
 /// - parameter angle: 角度
 /// - returns:  弧度
 func transToRadian(_ angle: CGFloat) -> CGFloat {
-	return angle * CGFloat(M_PI) / 180
+	return angle * CGFloat(Double.pi) / 180
 }
 
 /// 根据角度，半径计算X坐标.

@@ -1,53 +1,68 @@
 //
-//  MEMPockerViewController.m
+//  MEMPokerViewController.m
 //  Memory
 //
 //  Created by owen on 2017/9/15.
 //  Copyright © 2017年 owen. All rights reserved.
 //
 
-#import "MEMPockerViewController.h"
+#import "MEMPokerViewController.h"
 #import "UIView+ViewFrameGeometry.h"
+#import "Memory-Swift.h"
 
 static float const      kScaleParameter = 0.7;
 static NSUInteger const kPokerCount = 5;
 
-@interface MEMPockerViewController ()
+@interface MEMPokerViewController ()
 @property (nonatomic, assign) BOOL tapActionEnabled;
-@property (nonatomic, strong) UIView *mainView;
+@property (nonatomic, strong) NSMutableArray *pokerViews;
+@property (nonatomic, assign) CGSize pokerSize;
 @end
 
-@implementation MEMPockerViewController
+@implementation MEMPokerViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    self.view.backgroundColor = [UIColor blueColor];
+    self.view.backgroundColor = [UIColor color:0x010101];
+    self.title = @"试试运气";
+}
+
+- (void)viewDidAppear:(BOOL)animated {
+    [super viewDidAppear:animated];
+    for (UIImageView *view in _pokerViews) {
+        [view removeFromSuperview];
+    }
+    [self pokerAnimation];
 }
 
 - (void)pokerAnimation
 {
     self.tapActionEnabled = NO;
-    
-    self.mainView.layer.cornerRadius = 3;
-    self.mainView.layer.borderWidth = 5;
-    UIImage *poker = [UIImage imageNamed:@"look_around_poker_bg"];
+    self.pokerViews = [NSMutableArray array];
     CGSize  pokerSize;
     CGPoint pokerPoint;
-    
-    pokerSize = CGSizeMake(296 * kScaleParameter, 393 * kScaleParameter);
-    self.mainView.size = CGSizeMake(296, 393);
-    pokerPoint = CGPointMake(self.view.center.x, (self.view.height - pokerSize.height) / 2 + pokerSize.height + 30);
+    CGFloat pokerWidth = [UIScreen mainScreen].bounds.size.width - 150;
+    _pokerSize = CGSizeMake(pokerWidth, pokerWidth * 4 / 3.0);
+    pokerPoint = CGPointMake(self.view.center.x, (self.view.height - _pokerSize.height) / 2 + _pokerSize.height + 30);
     
     for (NSUInteger i = 0; i < kPokerCount; i++) {
+        UIImage *poker = [UIImage imageNamed:@"look_around_poker_bg"];
         UIImageView *pokerImageView = [[UIImageView alloc] initWithImage:poker];
         pokerImageView.layer.anchorPoint = CGPointMake(0.5, 1);
-        pokerImageView.size = pokerSize;
+        pokerImageView.size = _pokerSize;
         pokerImageView.layer.position = pokerPoint;
-        pokerImageView.tag = i + 1;
+        pokerImageView.tag = i;
         pokerImageView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(event:)];
         [pokerImageView addGestureRecognizer:tapGesture];
         [self.view addSubview:pokerImageView];
+        [_pokerViews addObject:pokerImageView];
+    }
+    for (UIImageView *pokerImageView in _pokerViews) {
+        [UIView animateWithDuration:0.25 animations:^{
+            CGAffineTransform rotation = CGAffineTransformMakeRotation((-30 + 15 * pokerImageView.tag) / 180.0 * M_PI);
+            [pokerImageView setTransform:rotation];
+        }];
     }
 }
 
@@ -81,26 +96,21 @@ static NSUInteger const kPokerCount = 5;
                         gesture.view.transform = CGAffineTransformMakeScale(1 / kScaleParameter, 1 / kScaleParameter);
                     } completion:^(BOOL finished) {
                         if (finished) {
-//                            weakSelf.mainViewBottom = gesture.view.bottom;
-//                            [weakSelf loadMainView:^(LoadMainViewError error) {
-//                                weakSelf.mainView.transform = CGAffineTransformMakeScale(kScaleParameter, kScaleParameter);
-//                                weakSelf.mainView.origin = CGPointMake(0, 0);
-//                                gesture.view.layer.cornerRadius = 3;
-//                                gesture.view.layer.borderWidth = 5;
-//                                gesture.view.layer.borderColor = [RGBCOLOR(0x3d, 0xcb, 0xff) CGColor];
-//                                gesture.view.layer.masksToBounds = YES;
-//                                
-//                                [UIView transitionWithView:gesture.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
-//                                    if (gesture.view.subviews.count == 0) {
-//                                        [gesture.view addSubview:weakSelf.mainView];
-//                                    }
-//                                } completion:^(BOOL finished) {
-//                                    if (finished) {
-//                                        gesture.view.userInteractionEnabled = YES;
-//                                        [gesture.view removeGestureRecognizer:gesture];
-//                                    }
-//                                }];
-//                            }];
+                            UIView *container = [[UIView alloc] init];
+                            container.backgroundColor = [UIColor color:0x010101];
+                            UIImageView *photoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"1"]];
+                            photoImageView.contentMode = UIViewContentModeScaleAspectFit;
+                            container.size = _pokerSize;
+                            photoImageView.size = _pokerSize;
+                            [container addSubview:photoImageView];
+                            [UIView transitionWithView:gesture.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
+                                if (gesture.view.subviews.count == 0) {
+                                    [gesture.view addSubview:container];
+                                }
+                            } completion:^(BOOL finished) {
+                                if (finished) {
+                                }
+                            }];
                         }
                     }];
                 }
