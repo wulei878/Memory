@@ -17,6 +17,8 @@ static NSUInteger const kPokerCount = 5;
 @property (nonatomic, assign) BOOL tapActionEnabled;
 @property (nonatomic, strong) NSMutableArray *pokerViews;
 @property (nonatomic, assign) CGSize pokerSize;
+@property (nonatomic, strong) UIView *selectedView;
+@property (nonatomic, assign) CGPoint pokerPoint;
 @end
 
 @implementation MEMPokerViewController
@@ -40,17 +42,16 @@ static NSUInteger const kPokerCount = 5;
     self.tapActionEnabled = NO;
     self.pokerViews = [NSMutableArray array];
     CGSize  pokerSize;
-    CGPoint pokerPoint;
     CGFloat pokerWidth = [UIScreen mainScreen].bounds.size.width - 150;
     _pokerSize = CGSizeMake(pokerWidth, pokerWidth * 4 / 3.0);
-    pokerPoint = CGPointMake(self.view.center.x, (self.view.height - _pokerSize.height) / 2 + _pokerSize.height + 30);
+    _pokerPoint = CGPointMake(self.view.center.x, (self.view.height - _pokerSize.height) / 2 + _pokerSize.height + 30);
     
     for (NSUInteger i = 0; i < kPokerCount; i++) {
         UIImage *poker = [UIImage imageNamed:@"look_around_poker_bg"];
         UIImageView *pokerImageView = [[UIImageView alloc] initWithImage:poker];
         pokerImageView.layer.anchorPoint = CGPointMake(0.5, 1);
         pokerImageView.size = _pokerSize;
-        pokerImageView.layer.position = pokerPoint;
+        pokerImageView.layer.position = _pokerPoint;
         pokerImageView.tag = i;
         pokerImageView.userInteractionEnabled = YES;
         UITapGestureRecognizer *tapGesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(event:)];
@@ -98,17 +99,24 @@ static NSUInteger const kPokerCount = 5;
                         if (finished) {
                             UIView *container = [[UIView alloc] init];
                             container.backgroundColor = [UIColor color:0x010101];
-                            UIImageView *photoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"1"]];
+                            UIImageView *photoImageView = [[UIImageView alloc] initWithImage:[UIImage imageNamed:[NSString stringWithFormat:@"beijing_%d",arc4random() % 20]]];
                             photoImageView.contentMode = UIViewContentModeScaleAspectFit;
                             container.size = _pokerSize;
                             photoImageView.size = _pokerSize;
                             [container addSubview:photoImageView];
+
                             [UIView transitionWithView:gesture.view duration:0.5 options:UIViewAnimationOptionTransitionFlipFromLeft animations:^{
                                 if (gesture.view.subviews.count == 0) {
                                     [gesture.view addSubview:container];
                                 }
                             } completion:^(BOOL finished) {
                                 if (finished) {
+                                    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(restartPockerAnimation)];
+                                    [photoImageView addGestureRecognizer:tap];
+                                    photoImageView.userInteractionEnabled = YES;
+                                    self.selectedView = gesture.view;
+                                    gesture.view.userInteractionEnabled = YES;
+                                    _tapActionEnabled = NO;
                                 }
                             }];
                         }
@@ -117,6 +125,30 @@ static NSUInteger const kPokerCount = 5;
             }];
         }
     }];
+}
+
+- (void)restartPockerAnimation {
+    [UIView animateWithDuration:0.25 animations:^{
+        _selectedView.alpha = 0;
+    } completion:^(BOOL finished) {
+        for (UIView *view in _selectedView.subviews) {
+            [view removeFromSuperview];
+        }
+        for (UIImageView *pokerImageView in _pokerViews) {
+            pokerImageView.layer.anchorPoint = CGPointMake(0.5, 1);
+            pokerImageView.layer.position = _pokerPoint;
+            [UIView animateWithDuration:0.25 animations:^{
+                CGAffineTransform rotation = CGAffineTransformMakeRotation(0);
+                [pokerImageView setTransform:rotation];
+                pokerImageView.alpha = 1;
+            }];
+            [UIView animateWithDuration:0.25 animations:^{
+                CGAffineTransform rotation = CGAffineTransformMakeRotation((-30 + 15 * pokerImageView.tag) / 180.0 * M_PI);
+                [pokerImageView setTransform:rotation];
+            }];
+        }
+    }];
+
 }
 
 - (void)didReceiveMemoryWarning {

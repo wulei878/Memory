@@ -7,5 +7,6 @@ target 'Memory' do
     pod 'Masonry'
 	pod 'lottie-ios'
     pod 'IDMPhotoBrowser'
+    pod 'MBProgressHUD'
 end
 

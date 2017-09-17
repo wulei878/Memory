@@ -6,6 +6,7 @@ PODS:
     - SDWebImage (= 4.0.0)
   - lottie-ios (2.1.3)
   - Masonry (1.0.2)
+  - MBProgressHUD (1.0.0)
   - pop (1.0.10)
   - SDWebImage (4.0.0):
     - SDWebImage/Core (= 4.0.0)
@@ -15,15 +16,17 @@ DEPENDENCIES:
   - IDMPhotoBrowser
   - lottie-ios
   - Masonry
+  - MBProgressHUD
 
 SPEC CHECKSUMS:
   DACircularProgress: 4dd437c0fc3da5161cb289e07ac449493d41db71
   IDMPhotoBrowser: b96159fe4adb991a844068eb17dab9c0b7d7e51a
   lottie-ios: 8c150606598931621e927377f1426d2d3e99282d
   Masonry: 7c429b56da9d4ee0bbb3ed77a5ea710d6a5df39e
+  MBProgressHUD: 4890f671c94e8a0f3cf959aa731e9de2f036d71a
   pop: 82ca6b068ce9278fd350fd9dd09482a0ce9492e6
   SDWebImage: 76a6348bdc74eb5a55dd08a091ef298e56b55e41
 
-PODFILE CHECKSUM: 37e9165cf6b75e7683342f690c07bec17cd12482
+PODFILE CHECKSUM: a6ea5c51ddac3fb9f8cd0075395a847dbb295a8e
 
 COCOAPODS: 1.3.1

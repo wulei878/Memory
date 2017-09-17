@@ -12,6 +12,7 @@
 #import "Memory-Swift.h"
 #import "MEMTabViewController.h"
 
+static const NSInteger MEMShowDuration = 3;
 @interface MEMLaunchViewController ()
 @property (nonatomic, weak) NSTimer *timer;
 @end
@@ -68,7 +69,7 @@
             }];
         }
     }
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, 3 * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, MEMShowDuration * NSEC_PER_SEC), dispatch_get_main_queue(), ^{
         [self dismiss];
     });
 }
