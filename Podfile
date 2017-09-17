@@ -8,5 +8,6 @@ target 'Memory' do
 	pod 'lottie-ios'
     pod 'IDMPhotoBrowser'
     pod 'MBProgressHUD'
+    pod 'Qiniu', '~> 7.1'
 end
 

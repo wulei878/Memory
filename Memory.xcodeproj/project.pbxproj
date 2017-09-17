@@ -59,6 +59,7 @@
 		5A0852C41F6AF0A8005A247E /* MEMPokerViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0852C31F6AF0A8005A247E /* MEMPokerViewController.m */; };
 		5A0852C71F6AF572005A247E /* MEMTabViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A0852C61F6AF572005A247E /* MEMTabViewController.m */; };
 		5A1C25A81F6BBB5F00B6E0AF /* MEMHomeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C25A71F6BBB5F00B6E0AF /* MEMHomeViewController.m */; };
+		5A1C25AE1F6E94BA00B6E0AF /* MEMFileManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1C25AD1F6E94BA00B6E0AF /* MEMFileManager.m */; };
 		5A1E00181F6AC42B00E622BA /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1E00171F6AC42B00E622BA /* main.m */; };
 		5A1E001B1F6AC42B00E622BA /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1E001A1F6AC42B00E622BA /* AppDelegate.m */; };
 		5A1E001E1F6AC42B00E622BA /* MEMLaunchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A1E001D1F6AC42B00E622BA /* MEMLaunchViewController.m */; };
@@ -124,6 +125,8 @@
 		5A0852C61F6AF572005A247E /* MEMTabViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = MEMTabViewController.m; sourceTree = "<group>"; };
 		5A1C25A61F6BBB5F00B6E0AF /* MEMHomeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEMHomeViewController.h; sourceTree = "<group>"; };
 		5A1C25A71F6BBB5F00B6E0AF /* MEMHomeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEMHomeViewController.m; sourceTree = "<group>"; };
+		5A1C25AC1F6E94BA00B6E0AF /* MEMFileManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MEMFileManager.h; sourceTree = "<group>"; };
+		5A1C25AD1F6E94BA00B6E0AF /* MEMFileManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MEMFileManager.m; sourceTree = "<group>"; };
 		5A1E00131F6AC42B00E622BA /* Memory.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Memory.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		5A1E00171F6AC42B00E622BA /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
 		5A1E00191F6AC42B00E622BA /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
@@ -234,6 +237,8 @@
 				5A1C25A71F6BBB5F00B6E0AF /* MEMHomeViewController.m */,
 				5A07A74A1F6D834C007B5794 /* MEMMediaPickerViewController.h */,
 				5A07A74B1F6D834C007B5794 /* MEMMediaPickerViewController.m */,
+				5A1C25AC1F6E94BA00B6E0AF /* MEMFileManager.h */,
+				5A1C25AD1F6E94BA00B6E0AF /* MEMFileManager.m */,
 			);
 			path = Business;
 			sourceTree = "<group>";
@@ -457,20 +462,26 @@
 			);
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-Memory/Pods-Memory-frameworks.sh",
+				"${BUILT_PRODUCTS_DIR}/AFNetworking/AFNetworking.framework",
 				"${BUILT_PRODUCTS_DIR}/DACircularProgress/DACircularProgress.framework",
+				"${BUILT_PRODUCTS_DIR}/HappyDNS/HappyDNS.framework",
 				"${BUILT_PRODUCTS_DIR}/IDMPhotoBrowser/IDMPhotoBrowser.framework",
 				"${BUILT_PRODUCTS_DIR}/MBProgressHUD/MBProgressHUD.framework",
 				"${BUILT_PRODUCTS_DIR}/Masonry/Masonry.framework",
+				"${BUILT_PRODUCTS_DIR}/Qiniu/Qiniu.framework",
 				"${BUILT_PRODUCTS_DIR}/SDWebImage/SDWebImage.framework",
 				"${BUILT_PRODUCTS_DIR}/lottie-ios/Lottie.framework",
 				"${BUILT_PRODUCTS_DIR}/pop/pop.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/AFNetworking.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/DACircularProgress.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/HappyDNS.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/IDMPhotoBrowser.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/MBProgressHUD.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Masonry.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Qiniu.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/SDWebImage.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/Lottie.framework",
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/pop.framework",
@@ -492,6 +503,7 @@
 				5A1E001B1F6AC42B00E622BA /* AppDelegate.m in Sources */,
 				5A0852BB1F6AE6A5005A247E /* CommonExtension.swift in Sources */,
 				5A1E00181F6AC42B00E622BA /* main.m in Sources */,
+				5A1C25AE1F6E94BA00B6E0AF /* MEMFileManager.m in Sources */,
 				5A0852C71F6AF572005A247E /* MEMTabViewController.m in Sources */,
 				5A0852C41F6AF0A8005A247E /* MEMPokerViewController.m in Sources */,
 				5A0852B51F6ADDD5005A247E /* UIView+ViewFrameGeometry.m in Sources */,
